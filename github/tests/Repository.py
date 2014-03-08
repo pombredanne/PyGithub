@@ -252,9 +252,9 @@ class Repository(Framework.TestCase):
     def testGetCommitsWithAuthor(self):
         self.g.per_page = 5
         akfish = self.g.get_user("AKFish")
-        self.assertListKeyBegin(self.repo.get_commits(author=self.user), lambda c:c.sha, ["54f718a15770579a37ffbe7ae94ad30003407786"])
-        self.assertListKeyBegin(self.repo.get_commits(author=akfish), lambda c:c.sha, ["38b137fb37c0fdc74f8802a4184518e105db9121"])
-        self.assertListKeyBegin(self.repo.get_commits(author="m.ki2@laposte.net"), lambda c:c.sha, ["ab674dfcbc86c70bc32d9ecbe171b48a5694c337"])
+        self.assertListKeyBegin(self.repo.get_commits(author=self.user), lambda c: c.sha, ["54f718a15770579a37ffbe7ae94ad30003407786"])
+        self.assertListKeyBegin(self.repo.get_commits(author=akfish), lambda c: c.sha, ["38b137fb37c0fdc74f8802a4184518e105db9121"])
+        self.assertListKeyBegin(self.repo.get_commits(author="m.ki2@laposte.net"), lambda c: c.sha, ["ab674dfcbc86c70bc32d9ecbe171b48a5694c337"])
 
     def testGetDownloads(self):
         self.assertListKeyEqual(self.repo.get_downloads(), lambda d: d.id, [245143])
@@ -450,14 +450,14 @@ class Repository(Framework.TestCase):
         self.repo.unsubscribe_from_hub("push", "http://requestb.in/1bc1sc61")
 
     def testStatisticsBeforeCaching(self):
-        self.assertIsNone(self.repo.get_stats_contributors())
-        self.assertIsNone(self.repo.get_stats_commit_activity())
-        self.assertIsNone(self.repo.get_stats_code_frequency())
+        self.assertEqual(self.repo.get_stats_contributors(), None)
+        self.assertEqual(self.repo.get_stats_commit_activity(), None)
+        self.assertEqual(self.repo.get_stats_code_frequency(), None)
         # ReplayData for those last two get_stats is forged because I was not
         # able to find a repo where participation and punch_card had never been
         # computed, and pushing to master did not reset the cache for them
-        self.assertIsNone(self.repo.get_stats_participation())
-        self.assertIsNone(self.repo.get_stats_punch_card())
+        self.assertEqual(self.repo.get_stats_participation(), None)
+        self.assertEqual(self.repo.get_stats_punch_card(), None)
 
     def testStatisticsAfterCaching(self):
         stats = self.repo.get_stats_contributors()
@@ -475,7 +475,20 @@ class Repository(Framework.TestCase):
                 self.assertEqual(s.weeks[0].w, datetime.datetime(2012, 2, 12))
         self.assertTrue(seenJacquev6)
 
-        self.repo.get_stats_commit_activity()
-        self.repo.get_stats_code_frequency()
-        self.repo.get_stats_participation()
-        self.repo.get_stats_punch_card()
+        stats = self.repo.get_stats_commit_activity()
+        self.assertEqual(stats[0].week, datetime.datetime(2012, 11, 18, 0, 0))
+        self.assertEqual(stats[0].total, 29)
+        self.assertEqual(stats[0].days, [0, 7, 3, 9, 7, 3, 0])
+
+        stats = self.repo.get_stats_code_frequency()
+        self.assertEqual(stats[0].week, datetime.datetime(2012, 2, 12, 0, 0))
+        self.assertEqual(stats[0].additions, 3853)
+        self.assertEqual(stats[0].deletions, -2098)
+
+        stats = self.repo.get_stats_participation()
+        self.assertEqual(stats.owner, [1, 36, 8, 0, 0, 8, 18, 0, 0, 0, 0, 7, 20, 6, 9, 0, 4, 11, 20, 16, 0, 3, 0, 16, 0, 0, 6, 1, 4, 0, 1, 6, 0, 0, 12, 10, 0, 0, 0, 1, 44, 0, 20, 10, 0, 0, 0, 0, 0, 10, 0, 0])
+        self.assertEqual(stats.all, [4, 36, 8, 0, 0, 10, 20, 0, 0, 0, 0, 11, 20, 6, 9, 0, 4, 14, 21, 16, 0, 3, 0, 20, 0, 0, 8, 1, 9, 16, 1, 15, 1, 0, 12, 12, 0, 4, 6, 15, 116, 20, 20, 11, 0, 0, 0, 0, 0, 10, 0, 0])
+
+        stats = self.repo.get_stats_punch_card()
+        self.assertEqual(stats.get(4, 12), 7)
+        self.assertEqual(stats.get(6, 18), 2)

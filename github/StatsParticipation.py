@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
+
 ############################ Copyrights and license ############################
 #                                                                              #
-# Copyright 2012 Vincent Jacques <vincent@vincent-jacques.net>                 #
-# Copyright 2013 AKFish <akfish@gmail.com>                                     #
 # Copyright 2013 Vincent Jacques <vincent@vincent-jacques.net>                 #
 #                                                                              #
 # This file is part of PyGithub. http://jacquev6.github.com/PyGithub/          #
@@ -21,15 +21,36 @@
 #                                                                              #
 ################################################################################
 
-*.pyc
+import github.GithubObject
 
-/GithubCredentials.py
-/scripts/TwitterCredentials.py
-/dist/
-/build/
-/MANIFEST
-/PyGithub.egg-info/
-/.coverage
-/developer.github.com/
-/gh-pages/
-/doc/doctrees/
+import github.NamedUser
+
+
+class StatsParticipation(github.GithubObject.NonCompletableGithubObject):
+    """
+    This class represents statistics of participation. The reference can be found here http://developer.github.com/v3/repos/statistics/#get-the-weekly-commit-count-for-the-repo-owner-and-everyone-else
+    """
+
+    @property
+    def all(self):
+        """
+        :type: list of int
+        """
+        return self._all.value
+
+    @property
+    def owner(self):
+        """
+        :type: list of int
+        """
+        return self._owner.value
+
+    def _initAttributes(self):
+        self._all = github.GithubObject.NotSet
+        self._owner = github.GithubObject.NotSet
+
+    def _useAttributes(self, attributes):
+        if "all" in attributes:  # pragma no branch
+            self._all = self._makeListOfIntsAttribute(attributes["all"])
+        if "owner" in attributes:  # pragma no branch
+            self._owner = self._makeListOfIntsAttribute(attributes["owner"])
