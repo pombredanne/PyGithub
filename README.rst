@@ -1,45 +1,42 @@
 This is a Python (2 and 3) library to access the `Github API v3 <http://developer.github.com/v3>`_.
-With it, you can manage your `Github <http://github.com>`_ resources (repositories, user profiles, organizations, etc.) from Python scripts.
+With it, you can manage `Github <http://github.com>`_ resources (repositories, user profiles, organizations, etc.) from Python scripts.
 
-It covers the **full** API (except recent additions, see "What's missing" bellow), and all methods are tested against the real Github site.
+It covers almost the full API (see "What's missing" bellow), and all methods are tested against the real Github site.
 
 Should you have any question, any remark, or if you find a bug, or if there is something you can do with the API but not with PyGithub, please `open an issue <https://github.com/jacquev6/PyGithub/issues>`_.
 
-PyGithub is stable. I will maintain it up to date with the API, and fix bugs if any, but I don't plan new heavy developments.
+PyGithub 1.x.x is stable and I don't plan to spend time adding missing functionalities. I still accept you pull requests.
+Here is the `references documentation <http://jacquev6.github.io/PyGithub/v1>`_.
 
+I'm currently developing the `version 2 of PyGithub <https://github.com/jacquev6/PyGithub/tree/develop_v2>`_.
+Here is the `documentation <http://jacquev6.github.io/PyGithub/v2/index.html#migration-strategy-and-maintenance-schedule>`_, including a migration planning.
 
 What's new?
 ===========
 
-Thank you, dear stargazers!
----------------------------
+Version 2.0.0-alpha.1 (March 2nd, 2014)
+---------------------------------------
 
-Starting today (September 5th, 2013), we now need more than 8 bits to store the number of `stargazers <https://github.com/jacquev6/PyGithub/stargazers>`_! Thank you so much!
+This first alpha version focuses on the bases and on the interactions between users, organizations and repositories.
 
-`Version 1.21.0 <https://github.com/jacquev6/PyGithub/issues?milestone=33&state=closed>`_ (November ??th, 2013)
+Please comment on `those issues <https://github.com/jacquev6/PyGithub/issues?labels=Prioritization%2Cv2&milestone=&page=1&state=open>`_
+to help me prioritize the next developments. And do not heasitate to `open an issue <https://github.com/jacquev6/PyGithub/issues>`_ to discuss anything.
+
+`Version 1.24.0 <https://github.com/jacquev6/PyGithub/issues?milestone=36&state=closed>`_ (March 2nd, 2014)
 ---------------------------------------------------------------------------------------------------------------
 
-* `Accept <https://github.com/jacquev6/PyGithub/issues/202>`__ strings as well as ``Label`` objects in ``Issue.add_to_labels``, ``Issue.remove_from_labels`` and ``Issue.set_labels``. Thank you `acdha <https://github.com/acdha>`__ for asking
-* `Implement <https://github.com/jacquev6/PyGithub/issues/201>`__ equality comparison for *completable* github objects (ie. those who have a ``url`` attribute). Warning, comparison is still not implemented for non-completable objects. This will be done in version 2.0 of PyGithub. Thank you `OddBloke <https://github.com/OddBloke>`__ for asking
-* `Add <https://github.com/jacquev6/PyGithub/issues/204>`__ parameter ``author`` to ``Repository.get_commits``. Thank you `naorrosenberg <https://github.com/naorrosenberg>`__ for asking
-* `Implement <https://github.com/jacquev6/PyGithub/issues/203>`__ the statistics end points. Thank you `naorrosenberg <https://github.com/naorrosenberg>`__ for asking
+* `Implement <https://github.com/jacquev6/PyGithub/pull/224>`__ search, thanks to `thialfihar <https://github.com/thialfihar>`__ for the pull request
 
 Twitter
 -------
 
-Starting with version 1.21.0, I'm going to twitt each new release. I rarelly twitt, and always about software development, so you might want to `follow me <https://twitter.com/jacquev6>`_ to stay informed.
+I tweet each new release. I rarely tweet, and always about software development, so you might want to `follow me <https://twitter.com/jacquev6>`_ to stay informed.
 
-What's missing?
-===============
-
-We now have automated ways to list URLs documented in `the reference of Github API v3 <http://developer.github.com>`_ and not covered by PyGithub.
-
-Github API v3 URLs not (yet) covered by PyGithub
-------------------------------------------------
+What's missing in versions 1.x.x? Github API v3 URLs not covered by v1
+======================================================================
 
 * ``/applications/:client_id/tokens/:access_token`` (GET)
 * ``/authorizations/clients/:client_id`` (PUT)
-* ``/emojis`` (GET)
 * ``/feeds`` (GET)
 * ``/meta`` (GET)
 * ``/notifications`` (PUT)
@@ -71,13 +68,3 @@ Github API v3 URLs not (yet) covered by PyGithub
 * ``/repos/:owner/:repo/subscription`` (DELETE)
 * ``/repos/:owner/:repo/subscription`` (GET)
 * ``/repos/:owner/:repo/subscription`` (PUT)
-* ``/search/code`` (GET)
-* ``/search/issues`` (GET)
-* ``/search/repositories`` (GET)
-* ``/search/users`` (GET)
-* ``/user/teams`` (GET)
-
-Documentation
-=============
-
-All the documentation is here: http://jacquev6.github.com/PyGithub.
