@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2012 Vincent Jacques <vincent@vincent-jacques.net>                 #
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
 import sys
 import unittest
@@ -34,6 +34,10 @@ def main(argv):
     if "--record" in argv:
         github.tests.Framework.activateRecordMode()
         argv = [arg for arg in argv if arg != "--record"]
+
+    if "--auth_with_token" in argv:
+        github.tests.Framework.activateTokenAuthMode()
+        argv = [arg for arg in argv if arg != "--auth_with_token"]
 
     unittest.main(module=github.tests.AllTests, argv=argv)
 

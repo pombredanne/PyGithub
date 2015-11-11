@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2012 Vincent Jacques <vincent@vincent-jacques.net>                 #
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
 import github.GithubObject
 
@@ -31,7 +31,7 @@ import github.NamedUser
 
 class CommitStatus(github.GithubObject.NonCompletableGithubObject):
     """
-    This class represents CommitStatuss as returned for example by http://developer.github.com/v3/todo
+    This class represents CommitStatuss as returned for example by https://developer.github.com/v3/repos/statuses/
     """
 
     @property

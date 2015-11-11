@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2013 AKFish <akfish@gmail.com>                                     #
 # Copyright 2013 Ed Jackson <ed.jackson@gmail.com>                             #
@@ -23,7 +23,7 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
 import urllib
 import pickle
@@ -54,7 +54,7 @@ class Github(object):
     This is the main class you instanciate to access the Github API v3. Optional parameters allow different authentication methods.
     """
 
-    def __init__(self, login_or_token=None, password=None, base_url=DEFAULT_BASE_URL, timeout=DEFAULT_TIMEOUT, client_id=None, client_secret=None, user_agent='PyGithub/Python', per_page=DEFAULT_PER_PAGE):
+    def __init__(self, login_or_token=None, password=None, base_url=DEFAULT_BASE_URL, timeout=DEFAULT_TIMEOUT, client_id=None, client_secret=None, user_agent='PyGithub/Python', per_page=DEFAULT_PER_PAGE, api_preview=False):
         """
         :param login_or_token: string
         :param password: string
@@ -73,7 +73,8 @@ class Github(object):
         assert client_id is None or isinstance(client_id, (str, unicode)), client_id
         assert client_secret is None or isinstance(client_secret, (str, unicode)), client_secret
         assert user_agent is None or isinstance(user_agent, (str, unicode)), user_agent
-        self.__requester = Requester(login_or_token, password, base_url, timeout, client_id, client_secret, user_agent, per_page)
+        assert isinstance(api_preview, (bool))
+        self.__requester = Requester(login_or_token, password, base_url, timeout, client_id, client_secret, user_agent, per_page, api_preview)
 
     def __get_FIX_REPO_GET_GIT_REF(self):
         """
@@ -188,15 +189,19 @@ class Github(object):
         )
         return github.Organization.Organization(self.__requester, headers, data, completed=True)
 
-    def get_repo(self, full_name):
+    def get_repo(self, full_name_or_id, lazy=True):
         """
-        :calls: `GET /repos/:owner/:repo <http://developer.github.com/v3/repos>`_
+        :calls: `GET /repos/:owner/:repo <http://developer.github.com/v3/repos>`_ or `GET /repositories/:id <http://developer.github.com/v3/repos>`_
         :rtype: :class:`github.Repository.Repository`
         """
-        assert isinstance(full_name, (str, unicode)), full_name
+        assert isinstance(full_name_or_id, (str, unicode, int, long)), full_name_or_id
+        url_base = "/repositories/" if isinstance(full_name_or_id, int) or isinstance(full_name_or_id, long) else "/repos/"
+        url = "%s%s" % (url_base, full_name_or_id)
+        if lazy:
+            return Repository.Repository(self.__requester, {}, {"url": url}, completed=False)
         headers, data = self.__requester.requestJsonAndCheck(
             "GET",
-            "/repos/" + full_name
+            "%s%s" % (url_base, full_name_or_id)
         )
         return Repository.Repository(self.__requester, headers, data, completed=True)
 
@@ -253,7 +258,7 @@ class Github(object):
         assert language is github.GithubObject.NotSet or isinstance(language, (str, unicode)), language
         args = {} if language is github.GithubObject.NotSet else {"language": language}
         return Legacy.PaginatedList(
-            "/legacy/repos/search/" + urllib.quote(keyword),
+            "/legacy/repos/search/" + urllib.quote_plus(keyword, safe='/%:><'),
             args,
             self.__requester,
             "repositories",
@@ -269,7 +274,7 @@ class Github(object):
         """
         assert isinstance(keyword, (str, unicode)), keyword
         return Legacy.PaginatedList(
-            "/legacy/user/search/" + urllib.quote(keyword),
+            "/legacy/user/search/" + urllib.quote_plus(keyword, safe='/%:><'),
             {},
             self.__requester,
             "users",
@@ -301,16 +306,16 @@ class Github(object):
         """
         assert isinstance(query, (str, unicode)), query
         url_parameters = dict()
-        if sort is not github.GithubObject.NotSet:
+        if sort is not github.GithubObject.NotSet:  # pragma no branch (Should be covered)
             assert sort in ('stars', 'forks', 'updated'), sort
             url_parameters["sort"] = sort
-        if order is not github.GithubObject.NotSet:
+        if order is not github.GithubObject.NotSet:  # pragma no branch (Should be covered)
             assert order in ('asc', 'desc'), order
             url_parameters["order"] = order
 
         query_chunks = []
-        if query:
-            query_chunks += query.split()
+        if query:  # pragma no branch (Should be covered)
+            query_chunks.append(query)
 
         for qualifier, value in qualifiers.items():
             query_chunks.append("%s:%s" % (qualifier, value))
@@ -345,7 +350,7 @@ class Github(object):
 
         query_chunks = []
         if query:
-            query_chunks.append(urllib.quote(query))
+            query_chunks.append(query)
 
         for qualifier, value in qualifiers.items():
             query_chunks.append("%s:%s" % (qualifier, value))
@@ -379,8 +384,8 @@ class Github(object):
             url_parameters["order"] = order
 
         query_chunks = []
-        if query:
-            query_chunks.append(urllib.quote(query))
+        if query:  # pragma no branch (Should be covered)
+            query_chunks.append(query)
 
         for qualifier, value in qualifiers.items():
             query_chunks.append("%s:%s" % (qualifier, value))
@@ -406,16 +411,16 @@ class Github(object):
         """
         assert isinstance(query, (str, unicode)), query
         url_parameters = dict()
-        if sort is not github.GithubObject.NotSet:
+        if sort is not github.GithubObject.NotSet:  # pragma no branch (Should be covered)
             assert sort in ('indexed',), sort
             url_parameters["sort"] = sort
-        if order is not github.GithubObject.NotSet:
+        if order is not github.GithubObject.NotSet:  # pragma no branch (Should be covered)
             assert order in ('asc', 'desc'), order
             url_parameters["order"] = order
 
         query_chunks = []
-        if query:
-            query_chunks.append(urllib.quote(query))
+        if query:  # pragma no branch (Should be covered)
+            query_chunks.append(query)
 
         for qualifier, value in qualifiers.items():
             query_chunks.append("%s:%s" % (qualifier, value))

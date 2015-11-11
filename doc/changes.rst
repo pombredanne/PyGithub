@@ -4,6 +4,27 @@ Change log
 Stable versions
 ~~~~~~~~~~~~~~~
 
+Version 1.25.2 (October 7th, 2014)
+----------------------------------
+
+* `Work around <https://github.com/jacquev6/PyGithub/issues/278>`__ the GitHub API v3 returning `null`s in some paginated responses, `erichaase <https://github.com/erichaase>`__ for the bug report
+
+Version 1.25.1 (September 28th, 2014)
+-------------------------------------
+
+* `Fix <https://github.com/jacquev6/PyGithub/pull/275>`__ two-factor authentication header, thanks to `tradej <https://github.com/tradej>`__ for the pull request
+
+`Version 1.25.0 <https://github.com/jacquev6/PyGithub/issues?milestone=38&state=closed>`_ (May 4th, 2014)
+---------------------------------------------------------------------------------------------------------
+
+* `Implement <https://github.com/jacquev6/PyGithub/pull/246>`__ getting repos by id, thanks to `tylertreat <https://github.com/tylertreat>`__ for the pull request
+* `Add <https://github.com/jacquev6/PyGithub/pull/247>`__ ``Gist.owner``, thanks to `dalejung <https://github.com/dalejung>`__ for the pull request
+
+`Version 1.24.1 <https://github.com/jacquev6/PyGithub/issues?milestone=37&state=closed>`_ (March 16th, 2014)
+---------------------------------------------------------------------------------------------------------------
+
+* `Fix <https://github.com/jacquev6/PyGithub/pull/237>`__ urlquoting in search, thanks to `cro <https://github.com/cro>`__ for the pull request
+
 `Version 1.24.0 <https://github.com/jacquev6/PyGithub/issues?milestone=36&state=closed>`_ (March 2nd, 2014)
 ---------------------------------------------------------------------------------------------------------------
 
@@ -60,7 +81,7 @@ Stable versions
 * No more false assumption on `rate_limiting <https://github.com/jacquev6/PyGithub/pull/186>`_, and creation of ``rate_limiting_resettime``. Thank you `edjackson <https://github.com/edjackson>`__ for the pull request
 * `New <https://github.com/jacquev6/PyGithub/pull/187>`__ parameters ``since`` and ``until`` to ``Repository.get_commits``. Thank you `apetresc <https://github.com/apetresc>`__ for the pull request
 * `Catch <https://github.com/jacquev6/PyGithub/pull/182>`__ Json parsing exception for some internal server errors, and throw a better exception. Thank you `MarkRoddy <https://github.com/MarkRoddy>`__ for the pull request
-* `Allow <https://github.com/jacquev6/PyGithub/pull/184>`__ reversed iteration of ``PaginatedList``s. Thank you `davidbrai <https://github.com/davidbrai>`__ for the pull request
+* `Allow <https://github.com/jacquev6/PyGithub/pull/184>`__ reversed iteration of ``PaginatedList``. Thank you `davidbrai <https://github.com/davidbrai>`__ for the pull request
 
 `Version 1.17.0 <https://github.com/jacquev6/PyGithub/issues?milestone=29&state=closed>`__ (Jully 7th, 2013) (Hamburg edition)
 ------------------------------------------------------------------------------------------------------------------------------

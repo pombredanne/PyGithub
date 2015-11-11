@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2012 Vincent Jacques <vincent@vincent-jacques.net>                 #
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
@@ -23,7 +23,7 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
 import github.GithubObject
 import github.PaginatedList
@@ -150,17 +150,19 @@ class Commit(github.GithubObject.CompletableGithubObject):
         )
         return github.CommitComment.CommitComment(self._requester, headers, data, completed=True)
 
-    def create_status(self, state, target_url=github.GithubObject.NotSet, description=github.GithubObject.NotSet):
+    def create_status(self, state, target_url=github.GithubObject.NotSet, description=github.GithubObject.NotSet, context=github.GithubObject.NotSet):
         """
         :calls: `POST /repos/:owner/:repo/statuses/:sha <http://developer.github.com/v3/repos/statuses>`_
         :param state: string
         :param target_url: string
         :param description: string
+        :param context: string
         :rtype: :class:`github.CommitStatus.CommitStatus`
         """
         assert isinstance(state, (str, unicode)), state
         assert target_url is github.GithubObject.NotSet or isinstance(target_url, (str, unicode)), target_url
         assert description is github.GithubObject.NotSet or isinstance(description, (str, unicode)), description
+        assert context is github.GithubObject.NotSet or isinstance(context, (str, unicode)), context
         post_parameters = {
             "state": state,
         }
@@ -168,6 +170,8 @@ class Commit(github.GithubObject.CompletableGithubObject):
             post_parameters["target_url"] = target_url
         if description is not github.GithubObject.NotSet:
             post_parameters["description"] = description
+        if context is not github.GithubObject.NotSet:
+            post_parameters["context"] = context
         headers, data = self._requester.requestJsonAndCheck(
             "POST",
             self._parentUrl(self._parentUrl(self.url)) + "/statuses/" + self.sha,

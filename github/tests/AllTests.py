@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2012 Vincent Jacques <vincent@vincent-jacques.net>                 #
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
 from AuthenticatedUser import *
 from Authentication import *
@@ -40,6 +40,7 @@ from GitBlob import *
 from GitCommit import *
 from Github_ import *
 from GitRef import *
+from GitRelease import *
 from GitTag import *
 from GitTree import *
 from Hook import *
@@ -89,3 +90,4 @@ from Issue158 import *
 from Issue174 import *
 from Issue214 import *
 from Issue216 import *
+from Issue278 import *

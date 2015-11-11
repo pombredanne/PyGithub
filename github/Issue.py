@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2012 Andrew Bettison <andrewb@zip.com.au>                          #
 # Copyright 2012 Philip Kimmey <philip@rover.com>                              #
@@ -25,8 +25,9 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
+import urllib
 import github.GithubObject
 import github.PaginatedList
 
@@ -355,6 +356,8 @@ class Issue(github.GithubObject.CompletableGithubObject):
         assert isinstance(label, (github.Label.Label, str, unicode)), label
         if isinstance(label, github.Label.Label):
             label = label._identity
+        else:
+            label = urllib.quote(label)
         headers, data = self._requester.requestJsonAndCheck(
             "DELETE",
             self.url + "/labels/" + label

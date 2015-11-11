@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-############################ Copyrights and license ############################
+# ########################## Copyrights and license ############################
 #                                                                              #
 # Copyright 2012 Vincent Jacques <vincent@vincent-jacques.net>                 #
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU Lesser General Public License     #
 # along with PyGithub. If not, see <http://www.gnu.org/licenses/>.             #
 #                                                                              #
-################################################################################
+# ##############################################################################
 
 import setuptools
 import textwrap
@@ -30,7 +30,7 @@ import subprocess
 import shutil
 import os.path
 
-version = "1.24.0"
+version = "1.26.0"
 
 
 if __name__ == "__main__":
@@ -74,7 +74,7 @@ if __name__ == "__main__":
             "github.tests",
         ],
         package_data={
-            "github": ["ReadMe.rst", "COPYING*", "tests/ReplayData/*.txt"]
+            "github": ["tests/ReplayData/*.txt"]
         },
         classifiers=[
             "Development Status :: 5 - Production/Stable",
