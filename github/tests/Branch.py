@@ -6,7 +6,8 @@
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
 # Copyright 2013 Vincent Jacques <vincent@vincent-jacques.net>                 #
 #                                                                              #
-# This file is part of PyGithub. http://jacquev6.github.com/PyGithub/          #
+# This file is part of PyGithub.                                               #
+# http://pygithub.github.io/PyGithub/v1/index.html                             #
 #                                                                              #
 # PyGithub is free software: you can redistribute it and/or modify it under    #
 # the terms of the GNU Lesser General Public License as published by the Free  #
@@ -34,3 +35,10 @@ class Branch(Framework.TestCase):
     def testAttributes(self):
         self.assertEqual(self.branch.name, "topic/RewriteWithGeneratedCode")
         self.assertEqual(self.branch.commit.sha, "1292bf0e22c796e91cc3d6e24b544aece8c21f2a")
+
+    def testProtectedAttributes(self):
+        self.branch = self.g.get_user().get_repo("PyGithub").get_protected_branch("master")
+        self.assertEqual(self.branch.name, "master")
+        self.assertFalse(self.branch.protected)
+        self.assertEqual(self.branch.enforcement_level, "off")
+        self.assertEqual(self.branch.contexts, [])

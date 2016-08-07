@@ -6,7 +6,8 @@
 # Copyright 2012 Zearin <zearin@gonk.net>                                      #
 # Copyright 2013 Vincent Jacques <vincent@vincent-jacques.net>                 #
 #                                                                              #
-# This file is part of PyGithub. http://jacquev6.github.com/PyGithub/          #
+# This file is part of PyGithub.                                               #
+# http://pygithub.github.io/PyGithub/v1/index.html                             #
 #                                                                              #
 # PyGithub is free software: you can redistribute it and/or modify it under    #
 # the terms of the GNU Lesser General Public License as published by the Free  #
@@ -25,6 +26,7 @@
 
 import github
 import sys
+import pickle
 
 import Framework
 
@@ -113,6 +115,10 @@ class Exceptions(Framework.TestCase):  # To stay compatible with Python 2.6, we 
             else:
                 self.assertEqual(str(exception), "401 {'message': 'Bad credentials'}")  # pragma no cover (Covered with Python 3)
         self.assertTrue(raised)
+
+
+    def testExceptionPickling(self):
+        pickle.loads(pickle.dumps(github.GithubException('foo', 'bar')))
 
 
 class SpecificExceptions(Framework.TestCase):
